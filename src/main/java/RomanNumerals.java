@@ -6,6 +6,7 @@ import java.util.Map;
 public class RomanNumerals {
     public static void main(String[] args) {
         System.out.println(romanToInt("III"));
+        System.out.println(romanToInt("IV"));
         System.out.println(romanToInt("LVIII"));
         System.out.println(romanToInt("MCMXCIV"));
     }
@@ -20,16 +21,17 @@ public class RomanNumerals {
         map.put('D', 500);
         map.put('M', 1000);
 
-        List<Integer> list = new ArrayList<>();
-        for (int i = 0; i < s.length(); i++) {
-            list.add(map.get(s.charAt(i)));
-        }
-
         int total = 0;
-        for (int number : list) {
-            total += number;
+        for (int i = 0; i < s.length() - 1; i++) {
+            // if the value of the char at  i is greater than the next char, add it to total.
+            if (map.get(s.charAt(i)) >= map.get(s.charAt(i + 1))) {
+                total += map.get(s.charAt(i));
+            } else {
+                // else subtract it from total
+                total -= map.get(s.charAt(i));
+            }
         }
 
-        return total;
+        return total + map.get(s.charAt(s.length() - 1));
     }
 }
